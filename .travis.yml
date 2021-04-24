@@ -10,7 +10,8 @@ before_install:
   - curl --silent -L "https://github.com/docker/buildx/releases/download/v0.5.1/buildx-v0.5.1.linux-amd64" > ~/.docker/cli-plugins/docker-buildx
   - chmod a+x ~/.docker/cli-plugins/docker-buildx
 script:
+  - export YTDLP_VERSION=$(curl --silent "https://api.github.com/repos/yt-dlp/yt-dlp/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
   - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
   - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
   - docker buildx create --use
-  - docker buildx build --push --platform linux/arm/v7,linux/arm64/v8,linux/amd64 --tag bonny1992/youtube-dlp:latest --tag bonny1992/youtube-dlp:1.0 .
+  - docker buildx build --push --platform linux/arm/v7,linux/arm64/v8,linux/amd64 --tag bonny1992/youtube-dlp:latest --tag bonny1992/youtube-dlp:$YTDLP_VERSION .
