@@ -14,4 +14,4 @@ script:
   - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
   - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
   - docker buildx create --use
-  - docker buildx build --push --platform linux/arm/v7,linux/arm64/v8,linux/amd64 --tag bonny1992/youtube-dlp:latest --tag bonny1992/youtube-dlp:$YTDLP_VERSION .
+  - docker buildx build --push --platform linux/arm/v7,linux/arm64/v8,linux/amd64 --tag bonny1992/youtube-dlp:latest --tag bonny1992/youtube-dlp:${YTDLP_VERSION} .
